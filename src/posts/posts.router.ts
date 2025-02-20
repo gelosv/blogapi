@@ -1,12 +1,13 @@
 import { Router } from "express";
+import { PostService } from './posts.service';
 
 export const router = Router();
+const service = new PostService();
 
-router.get('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    throw new Error('waax');
-    res.json('algodonafsda');
-    
+    const post = await service.createPost(req.body);
+    res.json(post);
   } catch (error) {
     next(error)
   }

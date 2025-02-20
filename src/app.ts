@@ -1,6 +1,7 @@
 import express from 'express'
 import { Router } from 'express';
 import { router as routerPost } from './posts/posts.router'
+import { errorHandler } from './middleware/errorr.middle'
 
 export function main() {
   const app = express();
@@ -17,6 +18,8 @@ export function main() {
   app.get('/', (req, res) => {
     res.json('SIUUUU');
   })
+
+  app.use(errorHandler)
 
   app.listen(app.get('port'), () => {
     console.log('Server iniciado');
