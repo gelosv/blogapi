@@ -21,4 +21,14 @@ export class PostService {
     });
     return posts;
   }
+
+  async getPostById(postId: number) {
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: postId
+      }
+    })
+
+    return post;
+  }
 }

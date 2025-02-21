@@ -1,9 +1,9 @@
-import { Request, RequestHandler, Router } from "express";
+import { Router } from "express";
+import { getPostById, getPosts } from "./posts.controller";
 import { PostService } from './posts.service';
-import { Pagination } from "./dto/pagination.interface";
 
-export const router = Router();
 const service = new PostService();
+export const router = Router();
 
 router.post('/', async (req, res, next) => {
   try {
@@ -14,15 +14,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-const getPosts: RequestHandler<unknown, unknown, unknown, Pagination> = async (req, res, next) => {
-  try {
-    const pagination = req.query;
-    console.log(pagination, 'page')
-    const posts = await service.getPosts(pagination);
-    res.json(posts);
-  } catch (error) {
-    next(error)
-  }
-}
-
 router.get('/', getPosts)
+
+router.get('/:id', getPostById)
