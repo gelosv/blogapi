@@ -1,3 +1,4 @@
+import { Pagination } from "./dto/pagination.interface";
 import { Post } from "./interfaces/post-create.interface";
 import { PrismaClient } from '@prisma/client'
 
@@ -8,5 +9,16 @@ export class PostService {
       data: post
     })
     return newPost;
+  }
+
+  async getPosts(pagination: Pagination) {
+    const page = pagination.page ?? 1;
+    const limit = pagination.limit ?? 5;
+
+    const posts = await this.prisma.post.findMany({
+      skip: (Number(page) - 1) * Number(limit),
+      take: Number(limit)
+    });
+    return posts;
   }
 }
