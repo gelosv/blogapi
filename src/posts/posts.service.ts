@@ -1,9 +1,11 @@
 import { Pagination } from "./dto/pagination.interface";
 import { Post } from "./interfaces/post-create.interface";
 import { PrismaClient } from '@prisma/client'
+import boom from '@hapi/boom'
 
 export class PostService {
   private readonly prisma = new PrismaClient()
+
   async createPost(post: Post) {
     const newPost = await this.prisma.post.create({
       data: post
@@ -26,8 +28,19 @@ export class PostService {
     const post = await this.prisma.post.findFirst({
       where: {
         id: postId
+      },
+      include: {
+        writer: {
+          select: {
+            name: true,
+            lastname: true,
+            nickname: true
+          }
+        }
       }
     })
+
+    if(!post) throw boom.notFound('Post inexistente');
 
     return post;
   }
