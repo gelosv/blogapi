@@ -1,6 +1,7 @@
 import express from 'express'
 import { Router } from 'express';
 import { router as routerPost } from './posts/posts.router'
+import { router as routerUser } from './users/user.router';
 import { errorHandler } from './middleware/errorr.middle'
 
 export function main() {
@@ -12,8 +13,9 @@ export function main() {
   app.use(express.json())
   app.use(express.urlencoded({extended: false}));
 
-  const routerBase = app.use('/api', router)
-  routerBase.use('/api/posts', routerPost)
+  app.use('/api', router)
+  router.use('/posts', routerPost)
+  router.use('/users', routerUser)
 
   app.get('/', (req, res) => {
     res.json('SIUUUU');
