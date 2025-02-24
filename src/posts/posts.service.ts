@@ -23,7 +23,7 @@ export class PostService {
     });
     return posts;
   }
-
+  // realizar un método que solo valide la existencia de un post?
   async getPostById(postId: number) {
     const post = await this.prisma.post.findFirst({
       where: {
@@ -42,6 +42,15 @@ export class PostService {
 
     if(!post) throw boom.notFound('Post inexistente');
 
-    return post;
+    const numLikePost = await this.prisma.userLikedPost.count({
+      where: {
+        postId
+      }
+    })
+    console.log(numLikePost, 'número de likes');
+    return {
+      ...post,
+      qtyLikes: numLikePost
+    };
   }
 }
