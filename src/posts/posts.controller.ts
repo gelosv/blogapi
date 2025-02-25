@@ -23,3 +23,14 @@ export const getPostById = async (req: Request, res: Response, next: NextFunctio
     next(error)
   }
 }
+
+export const getCommentsPost = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const postId = +req.params.postId
+    console.log(postId, 'rotuer')
+    const comments = await service.getCommentsPost(postId);
+    res.json(comments);
+  } catch (error) {
+    next(error)
+  }
+}

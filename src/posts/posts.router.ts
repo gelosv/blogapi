@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getPostById, getPosts } from "./posts.controller";
+import { getCommentsPost, getPostById, getPosts } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
 
@@ -19,6 +19,8 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/comments/:postId', getCommentsPost)
 
 router.get('/', getPosts)
 
