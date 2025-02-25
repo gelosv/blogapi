@@ -50,4 +50,27 @@ export class UserService {
     })
     return postsLiked;
   }
+
+  async addComment(postId: number, userId: number, content: string) {
+    const postExist = await this.prisma.post.findFirst({
+      where: {
+        id: postId
+      },
+      select: {
+        id: true
+      }
+    })
+
+    if(!postExist) throw boom.notFound('Post inexistente');
+
+    const comment = await this.prisma.postComments.create({
+      data: {
+        postId,
+        userId,
+        content
+      }
+    })
+
+    return comment;
+  }
 }

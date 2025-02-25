@@ -23,6 +23,7 @@ model User {
 
   posts         Post[]
   UserLikedPost UserLikedPost[]
+  PostComments PostComments[]
 }
 
 model Post {
@@ -35,6 +36,7 @@ model Post {
   writerId Int
 
   UserLikedPost UserLikedPost[]
+  PostComments PostComments[]
 
   createdAt DateTime @default(now())
 }
@@ -47,4 +49,15 @@ model UserLikedPost {
   postId Int
 
   @@id([postId, userId])
+}
+
+model PostComments {
+  id Int @id @default(autoincrement())
+  content String
+
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 }
