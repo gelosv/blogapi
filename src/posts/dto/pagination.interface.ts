@@ -1,4 +1,4 @@
 export interface Pagination {
-  page: 1,
-  limit: 10
+  page: number,
+  limit: number
 }

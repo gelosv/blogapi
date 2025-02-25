@@ -2,6 +2,8 @@ import { Router } from "express";
 import { getCommentsPost, getPostById, getPosts } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
+import { validatorSchema } from "./../middleware/validator.middle";
+import { paginationDto, paginationPostSchema } from "./schemas/post.validator";
 
 const service = new PostService();
 export const router = Router();
@@ -22,6 +24,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/comments/:postId', getCommentsPost)
 
-router.get('/', getPosts)
+router.get('/', validatorSchema<paginationDto, unknown>('query', paginationPostSchema), getPosts)
 
 router.get('/:id', getPostById)
