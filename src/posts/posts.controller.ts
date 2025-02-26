@@ -1,5 +1,4 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
-//import { Pagination } from "./dto/pagination.interface";
 import { PostService } from './posts.service';
 import { paginationDto } from "./schemas/post.validator";
 const service = new PostService();

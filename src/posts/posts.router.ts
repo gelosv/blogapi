@@ -3,12 +3,12 @@ import { getCommentsPost, getPostById, getPosts } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
 import { validatorSchema } from "./../middleware/validator.middle";
-import { paginationDto, paginationPostSchema } from "./schemas/post.validator";
+import { createPostSchema, paginationDto, paginationPostSchema } from "./schemas/post.validator";
 
 const service = new PostService();
 export const router = Router();
 
-router.post('/', async (req, res, next) => {
+router.post('/', validatorSchema<unknown, Post>('body', createPostSchema), async (req, res, next) => {
   try {
     const userId = 1; //req.user.id
     const postData: Post = {
