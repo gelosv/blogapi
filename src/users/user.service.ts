@@ -73,4 +73,15 @@ export class UserService {
 
     return comment;
   }
+
+  async getUserById(userId: number) {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        id: userId
+      }
+    })
+
+    if(!user) throw boom.notFound('Usuario no existe');
+    return user;
+  }
 }

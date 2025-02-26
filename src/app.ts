@@ -2,7 +2,9 @@ import express from 'express'
 import { Router } from 'express';
 import { router as routerPost } from './posts/posts.router'
 import { router as routerUser } from './users/user.router';
+import { router as authRouter } from './auth/auth.router'
 import { errorHandler } from './middleware/errorr.middle'
+import './auth/strategies'
 
 export function main() {
   const app = express();
@@ -16,6 +18,7 @@ export function main() {
   app.use('/api', router)
   router.use('/posts', routerPost)
   router.use('/users', routerUser)
+  router.use('/auth', authRouter)
 
   app.get('/', (req, res) => {
     res.json('SIUUUU');
