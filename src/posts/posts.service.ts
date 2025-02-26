@@ -15,11 +15,11 @@ export class PostService {
 
   async getPosts(pagination: Pagination) {
     const page = pagination.page ?? 1;
-    const limit = pagination.limit ?? 5;
+    const limit = pagination.limit ?? 10;
 
     const posts = await this.prisma.post.findMany({
-      skip: (Number(page) - 1) * Number(limit),
-      take: Number(limit)
+      skip: (page - 1) * limit,
+      take: limit
     });
     return posts;
   }

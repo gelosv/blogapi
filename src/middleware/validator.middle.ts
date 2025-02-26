@@ -2,15 +2,14 @@ import { ZodSchema } from "zod";
 import { Request, Response, NextFunction } from "express";
 import boom from "@hapi/boom";
 
-export function validatorSchema<Q,B>(
+export function validatorSchema<Q,B,P>(
   origin: "params" | "body" | "query",
   schema: ZodSchema,
 ) {
-  return (req: Request<unknown, unknown, B, Q>, res: Response, next: NextFunction) => {
+  return (req: Request<P, unknown, B, Q>, res: Response, next: NextFunction) => {
     const data = req[origin];
     const payload = schema.safeParse(data);
     console.log(payload, "resultado validación");
-    console.log(payload.error?.format(), 'format')
 
     if (!payload.success) {
       const errors = payload.error.formErrors.fieldErrors

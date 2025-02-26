@@ -1,14 +1,11 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { PostService } from './posts.service';
-import { paginationDto } from "./schemas/post.validator";
+import { paginationDto, postIdDto } from "./schemas/post.validator";
 const service = new PostService();
 //
 export const getPosts: RequestHandler<unknown, unknown, unknown, paginationDto> = async (req, res, next) => {
   try {
     const pagination = req.query;
-    console.log()
-    res.json(pagination)
-    return
     console.log(pagination, 'page')
     const posts = await service.getPosts(pagination);
     res.json(posts);
@@ -17,9 +14,9 @@ export const getPosts: RequestHandler<unknown, unknown, unknown, paginationDto> 
   }
 }
 
-export const getPostById = async (req: Request, res: Response, next: NextFunction) => {
+export const getPostById: RequestHandler<postIdDto, unknown, unknown, unknown> = async (req, res, next) => {
   try {
-    const postId = +req.params.id
+    const postId = req.params.id
     const post = await service.getPostById(postId);
     res.json(post);
   } catch (error) {
