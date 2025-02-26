@@ -1,7 +1,7 @@
-import { Pagination } from "./dto/pagination.interface";
 import { Post } from "./interfaces/post-create.interface";
 import { PrismaClient } from '@prisma/client'
 import boom from '@hapi/boom'
+import { PaginationDto } from "./schemas/post.validator";
 
 export class PostService {
   private readonly prisma = new PrismaClient()
@@ -13,7 +13,7 @@ export class PostService {
     return newPost;
   }
 
-  async getPosts(pagination: Pagination) {
+  async getPosts(pagination: PaginationDto) {
     const page = pagination.page ?? 1;
     const limit = pagination.limit ?? 10;
 
@@ -39,7 +39,6 @@ export class PostService {
     return post;
   }
 
-  // realizar un método que solo valide la existencia de un post?
   async getPostById(postId: number) {
     const post = await this.prisma.post.findFirst({
       where: {

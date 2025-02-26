@@ -12,7 +12,7 @@ export const paginationPostSchema = z.object({
   limit: z.string().optional().default("10").transform(Number).refine(n => Number.isInteger(n) && n > 0, { message: "El valor debe se un número positivo"})
 })
 
-export type paginationDto = z.infer<typeof paginationPostSchema>
+export type PaginationDto = z.infer<typeof paginationPostSchema>
 
 export const postIdSchema = z.object({
   id: z.string().transform((arg, ctx) => {

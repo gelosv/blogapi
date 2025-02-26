@@ -3,7 +3,7 @@ import { getCommentsPost, getPostById, getPosts } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
 import { validatorSchema } from "./../middleware/validator.middle";
-import { createPostSchema, paginationDto, paginationPostSchema, postIdDto, postIdSchema } from "./schemas/post.validator";
+import { createPostSchema, PaginationDto, paginationPostSchema, postIdDto, postIdSchema } from "./schemas/post.validator";
 
 const service = new PostService();
 export const router = Router();
@@ -22,8 +22,8 @@ router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchem
   }
 })
 
-router.get('/comments/:postId', validatorSchema('params', postIdSchema), getCommentsPost)
+router.get('/comments/:id', validatorSchema('params', postIdSchema), getCommentsPost)
 
-router.get('/', validatorSchema<paginationDto, unknown, unknown>('query', paginationPostSchema), getPosts)
+router.get('/', validatorSchema<PaginationDto, unknown, unknown>('query', paginationPostSchema), getPosts)
 
 router.get('/:id', validatorSchema<unknown, unknown, postIdDto>('params', postIdSchema), getPostById)
