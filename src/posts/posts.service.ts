@@ -39,6 +39,27 @@ export class PostService {
     return post;
   }
 
+  async getPostsByWriterId(writerId: number) {
+    const writerExists = await this.prisma.user.findFirst({
+      where: {
+        id: writerId
+      },
+      select: {
+        id: true
+      }
+    })
+
+    if(!writerExists) throw boom.notFound('User no existe');
+
+    const posts = await this.prisma.post.findMany({
+      where: {
+        writerId
+      }
+    })
+
+    return posts;
+  }
+
   async getPostById(postId: number) {
     const post = await this.prisma.post.findFirst({
       where: {

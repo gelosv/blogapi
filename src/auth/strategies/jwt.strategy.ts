@@ -17,10 +17,12 @@ export const jwtStrategy = new Strategy({
     const userAuth = {
       sub,
       name: user.name,
-      nickname: user.nickname
+      nickname: user.nickname,
+      rol: user.rol
     }
     done(null, userAuth)
   } catch (error) {
+    console.error(error, 'error auth')
     done(error, false)
   }
 })

@@ -7,6 +7,7 @@
       "@/*": ["src/*"]
     },
     "outDir": "dist",
+    "typeRoots": ["./config/types"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,

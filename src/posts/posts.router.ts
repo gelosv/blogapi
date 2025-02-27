@@ -1,16 +1,18 @@
 import { Router } from "express";
-import { getCommentsPost, getPostById, getPosts } from "./posts.controller";
+import { getCommentsPost, getPostById, getPosts, getPostUser } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
 import { validatorSchema } from "./../middleware/validator.middle";
 import { createPostSchema, PaginationDto, paginationPostSchema, postIdDto, postIdSchema } from "./schemas/post.validator";
+import passport from "passport";
 
 const service = new PostService();
 export const router = Router();
 
-router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchema), async (req, res, next) => {
+router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchema), passport.authenticate('jwt', { session: false }), async (req, res, next) => {
   try {
-    const userId = 1; //req.user.id
+    console.log(req.user, 'user')
+    const userId = req.user.sub ?? null
     const postData: Post = {
       ...req.body,
       writerId: userId
@@ -27,3 +29,5 @@ router.get('/comments/:id', validatorSchema('params', postIdSchema), getComments
 router.get('/', validatorSchema<PaginationDto, unknown, unknown>('query', paginationPostSchema), getPosts)
 
 router.get('/:id', validatorSchema<unknown, unknown, postIdDto>('params', postIdSchema), getPostById)
+
+router.get('/user/:writerId', getPostUser)

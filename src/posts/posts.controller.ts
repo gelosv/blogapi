@@ -23,3 +23,9 @@ export const getCommentsPost = catchAsync(async (req: Request, res: Response) =>
   const comments = await service.getCommentsPost(postId);
   res.json(comments);
 })
+
+export const getPostUser = catchAsync(async (req: Request, res) => {
+  const writerId = +req.params.writerId
+  const posts = await service.getPostsByWriterId(writerId)
+  res.json(posts)
+}) 

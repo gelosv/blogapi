@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+  WRITER
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -20,6 +26,7 @@ model User {
   nickname  String
   password  String
   createdAt DateTime @default(now())
+  rol Role @default(USER)
 
   posts         Post[]
   UserLikedPost UserLikedPost[]

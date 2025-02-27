@@ -4,6 +4,7 @@
   "main": "main.ts",
   "scripts": {
     "start:dev": "ts-node-dev --files ./src/main.ts",
+    "migrate": "prisma migrate dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
