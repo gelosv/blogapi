@@ -10,7 +10,6 @@ export class AuthService {
   private readonly prisma = new PrismaClient()
 
   setToken(data: {sub: number, name: string, nickname: string}) {
-    console.log(jwtKey, 'key jwt')
     const token = jwt.sign(data, jwtKey);
     return token
   }
@@ -30,7 +29,6 @@ export class AuthService {
     }
 
     const newPassword = await bcrypt.hash(user.password, 10);
-    console.log(newPassword, 'pass hash')
     const newUser = await this.prisma.user.create({
       data: {
         ...user,
@@ -75,15 +73,4 @@ export class AuthService {
     }
 
   }
-
-  async validateToken(authToken: string) {
-    try {
-      const payload = jwt.verify(authToken, jwtKey);
-      console.log(payload);
-      return payload;
-    } catch (error) {
-      throw boom.unauthorized('Token inválido')
-    }
-  }
-
 }
