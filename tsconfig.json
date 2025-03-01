@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
@@ -13,5 +14,10 @@
     "noImplicitAny": true,
     "strict": true,
     "skipLibCheck": true 
-  }
+  },
+  "watchOptions": {
+    "watchFile": "fixedPollingInterval"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "test", "dist"]
 }

@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "main.ts",
   "scripts": {
-    "start:dev": "ts-node-dev --files ./src/main.ts",
+    "start:dev": "npm run docker:start && ts-node-dev --files ./src/main.ts",
     "migrate": "prisma migrate dev",
+    "client": "prisma generate",
+    "docker:start": "prisma migrate dev --name init && prisma generate",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -28,6 +31,8 @@
     "@types/passport-jwt": "^4.0.1",
     "bcrypt": "^5.1.1",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
