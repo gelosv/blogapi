@@ -7,6 +7,14 @@ export class PostService {
   private readonly prisma = new PrismaClient()
 
   async createPost(post: Post) {
+    const categorieExist = await this.prisma.categorie.findFirst({
+      where: {
+        id: post.categorieId
+      }
+    })
+
+    if(!categorieExist) throw boom.notFound('Categoria no existente');
+
     const newPost = await this.prisma.post.create({
       data: post
     })

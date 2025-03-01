@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.ts",
   "scripts": {
-    "start:dev": "npm run docker:start && ts-node-dev --files ./src/main.ts",
+    "start:dev": "ts-node-dev --files ./src/main.ts",
     "migrate": "prisma migrate dev",
     "client": "prisma generate",
     "docker:start": "prisma migrate dev --name init && prisma generate",
