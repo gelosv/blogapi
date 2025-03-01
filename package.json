@@ -6,7 +6,7 @@
     "start:dev": "ts-node-dev --files ./src/main.ts",
     "migrate": "prisma migrate dev",
     "client": "prisma generate",
-    "docker:start": "prisma migrate dev --name init && prisma generate",
+    "docker": "prisma migrate dev --name init && prisma generate",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

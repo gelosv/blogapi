@@ -15,9 +15,9 @@ services:
     image: blog-compose
     volumes:
       - ./src:/usr/src/app/src
-    command: npm run start:dev
+    command: npm run docker && npm run start:dev
     environment:
-      - DATABASE_URL=mysql://root:sv44ag@mysql-db:3306/prismeico?schema=public
+      - DATABASE_URL=mysql://root:${DATABASE_PASSWORD}@mysql-db:3306/prismeico?schema=public
       - JWT_KEY=${JWT_KEY}
     ports:
       - 3000:3000

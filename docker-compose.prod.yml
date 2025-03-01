@@ -1,0 +1,14 @@
+services:
+  apiBlog:
+    build:
+      context: .
+      dockerfile: dockerfile.prod
+      args:
+        - DATABASE_URL=${DATABASE_PROD}
+        - JWT_KEY=${JWT_KEY}
+    image: blogproduction
+    container_name: blogProd
+    environment:
+      - DATABASE_URL=${DATABASE_PROD}
+    ports:
+      - 3001:3000

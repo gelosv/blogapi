@@ -12,7 +12,8 @@ RUN npm install
 
 FROM node:22-alpine AS build
 
-ENV DATABASE_URL="mysql://root:mqRhznLjSKAOIRadxtNNmPAJPyLdxpNj@hopper.proxy.rlwy.net:14957/railway"
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 
 WORKDIR /usr/src/app
 
@@ -36,6 +37,9 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/node_modules ./node_modules
 
 COPY --from=build /usr/src/app/dist ./dist
+
+ARG JWT_KEY
+ENV JWT_KEY=${JWT_KEY}
 
 ENV NODE_ENV=production
 
