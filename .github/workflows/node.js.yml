@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: 22.11.0
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-fund --no-audit
+      - name: 'Linter'
+        run: npm run lint
       - run: npm run build
       - name: 'Hello World'
         run: echo "Hula"

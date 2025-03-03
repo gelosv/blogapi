@@ -9,6 +9,7 @@
     "client": "prisma generate",
     "docker": "prisma migrate dev --name init && prisma generate",
     "build": "tsc",
+    "lint": "eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
