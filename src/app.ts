@@ -9,8 +9,6 @@ import { errorHandler } from './middleware/errorr.middle'
 import './auth/strategies'
 
 export function main() {
-  let a: any;
-  console.log(a)
   const app = express();
   const router = Router();
   const limiter = rateLimit({
