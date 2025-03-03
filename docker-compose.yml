@@ -15,10 +15,12 @@ services:
     image: blog-compose
     volumes:
       - ./src:/usr/src/app/src
-    command: npm run docker && npm run start:dev
+    command: npm run docker:start
     environment:
       - DATABASE_URL=mysql://root:${DATABASE_PASSWORD}@mysql-db:3306/prismeico?schema=public
       - JWT_KEY=${JWT_KEY}
+      - NODE_ENV=development
+      - PORT=${PORT}
     ports:
       - 3000:3000
     #tty: true

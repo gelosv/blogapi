@@ -2,3 +2,6 @@ dist/
 node_modules/
 prisma/migrations/
 .env
+dockerfile
+docker-compose.yml
+docker-compose.prod.yml

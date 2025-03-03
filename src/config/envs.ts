@@ -1,6 +1,6 @@
 const nodeEnv = process.env.NODE_ENV
 
-if(nodeEnv !== 'production') {
+if(!nodeEnv) {
   console.log(nodeEnv, 'env')
   process.loadEnvFile()
 }

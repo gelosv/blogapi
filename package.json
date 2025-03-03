@@ -4,6 +4,7 @@
   "main": "main.ts",
   "scripts": {
     "start:dev": "ts-node-dev --files ./src/main.ts",
+    "docker:start": "npm run docker && npm run start:dev",
     "migrate": "prisma migrate dev",
     "client": "prisma generate",
     "docker": "prisma migrate dev --name init && prisma generate",
