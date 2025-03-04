@@ -18,19 +18,43 @@ jobs:
         with:
           node-version: 22.11.0
           cache: 'npm'
-      - name: Carpetas
-        run: ls -al
       - name: 'Install dependencies'
         run: npm ci --no-fund --no-audit
       - name: Linter
         run: npm run lint
-      - name: node-version
-        run: node --version
   build:
+    needs: [linter]
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci --no-fund --no-audit
+      - name: Build application
+        run: npm run build
       - name: ls
         run: ls -al
-      - name: node-version
-        run: node --version
-
+      - name: Creating artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+  test:
+    needs: [build]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+          cache: 'npm'
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+      - name: Ls
+        run: ls -al
+      - name: Test
+        run: npm run test
