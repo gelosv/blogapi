@@ -25,11 +25,22 @@ export class PostService {
     const page = pagination.page ?? 1;
     const limit = pagination.limit ?? 10;
 
+    const numPosts = await this.prisma.post.count({})
+    const numPages = Math.ceil(numPosts / limit)
+
     const posts = await this.prisma.post.findMany({
       skip: (page - 1) * limit,
       take: limit
     });
-    return posts;
+    return {
+      posts,
+      info: {
+        limit,
+        page,
+        numPages,
+        totalPosts: numPosts
+      }
+    };
   }
 
   async postExits(postId: number) {

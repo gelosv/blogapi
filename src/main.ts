@@ -1,3 +1,3 @@
 import { main } from './app'
 
-main()
+export const { app, server } = main()

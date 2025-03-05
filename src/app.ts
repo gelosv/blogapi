@@ -37,8 +37,10 @@ export function main() {
 
   app.use(errorHandler)
 
-  app.listen(app.get('port'), () => {
+  const server = app.listen(app.get('port'), () => {
     console.log('Server iniciado');
   })
+
+  return { app, server }
 }
 

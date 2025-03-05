@@ -22,7 +22,7 @@ jobs:
         run: npm ci --no-fund --no-audit
       - name: Linter
         run: npm run lint
-  build:
+  build: ## acá debería construir el dockerfile?
     needs: [linter]
     runs-on: ubuntu-22.04
     steps:
@@ -42,7 +42,7 @@ jobs:
         with:
           name: dist
           path: dist
-  test:
+  test: ## test debería ser antes que build?
     needs: [build]
     runs-on: ubuntu-22.04
     steps:
@@ -55,7 +55,5 @@ jobs:
         with:
           name: dist
           path: dist
-      - name: Ls
-        run: ls -al
       - name: Test
         run: npm run test
