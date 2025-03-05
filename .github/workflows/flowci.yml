@@ -33,6 +33,8 @@ jobs:
           cache: 'npm'
       - name: Mysql?
         run: mysql --version
+      - name: Restart mysql
+        run: sudo systemctl restart mysql
       - name: status mysql
         run: sudo systemctl status mysql
       - name: Install dependencies
