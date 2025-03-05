@@ -5,11 +5,12 @@ import { Post } from "./interfaces/post-create.interface";
 import { validatorSchema } from "./../middleware/validator.middle";
 import { createPostSchema, PaginationDto, paginationPostSchema, postIdDto, postIdSchema } from "./schemas/post.validator";
 import passport from "passport";
+import { authorizationMiddle } from "../middleware/authorization.middle";
 
 const service = new PostService();
 export const router = Router();
 
-router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchema), passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchema), passport.authenticate('jwt', { session: false }), authorizationMiddle('WRITER'), async (req, res, next) => {
   try {
     console.log(req.user, 'user')
     const userId = req.user.sub ?? null
