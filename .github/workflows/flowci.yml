@@ -40,7 +40,7 @@ jobs:
       - name: status mysql
         run: sudo systemctl status mysql
       - name: Migrate database
-        run: npm run migrate -- --name init
+        run: npm run migrate
       - name: Generate prisma client
         run: npm run client
       - name: Test
