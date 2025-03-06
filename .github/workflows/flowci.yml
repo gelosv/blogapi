@@ -24,9 +24,6 @@ jobs:
         run: npm run lint
   test:
     runs-on: ubuntu-22.04
-    env:
-      DATABASE_URL: mysql://root:root@127.0.0.1:3306/blog
-      JWT_KEY: secret
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -43,7 +40,12 @@ jobs:
         run: rm -rf prisma/migrations
       - name: Migrate database
         run: npm run migrate -- --name init
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Generate prisma client
         run: npm run client
       - name: Test
-        run: npm run test
+        run: npm run test -- --silent
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_KEY: ${{ secrets.JWT_KEY }}
