@@ -22,44 +22,26 @@ jobs:
         run: npm ci --no-fund --no-audit
       - name: Linter
         run: npm run lint
-  build: ## acá debería construir el dockerfile?
-    needs: [linter]
+  test:
     runs-on: ubuntu-22.04
+    env:
+      DATABASE_URL: mysql://root:root@127.0.0.1:3306/blog
+      JWT_KEY: secret
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22.11.0
           cache: 'npm'
-      - name: Mysql?
-        run: mysql --version
       - name: Restart mysql
         run: sudo systemctl restart mysql
-      - name: status mysql
-        run: sudo systemctl status mysql
       - name: Install dependencies
         run: npm ci --no-fund --no-audit
-      - name: Build application
-        run: npm run build
-      - name: ls
-        run: ls -al
-      - name: Creating artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-  test: ## test debería ser antes que build?
-    needs: [build]
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.11.0
-          cache: 'npm'
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
+      - name: status mysql
+        run: sudo systemctl status mysql
+      - name: Migrate database
+        run: npm run migrate -- --name init
+      - name: Generate prisma client
+        run: npm run client
       - name: Test
         run: npm run test

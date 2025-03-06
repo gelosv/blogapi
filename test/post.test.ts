@@ -1,9 +1,17 @@
 import { app, server } from '../src/main';
 import request from 'supertest';
+import { createJWT, deleteAll, insertCategories, insertPosts, insertUsers } from './helpers/posts.helper';
+import { jwtKey } from '../src/config/envs';
 
 const api = request(app)
 
 describe('Posts endpoint', function () {
+  beforeAll(async () => {
+    await deleteAll()
+    await insertCategories()
+    await insertUsers()
+    await insertPosts()
+  })
   it('Debería devolver los 10 primeros posts', async () => {
     const response = await api.get('/api/posts')
     expect(response.header['content-type']).toContain('application/json')
@@ -23,11 +31,11 @@ describe('Posts endpoint', function () {
     expect(response.status).toBe(200)
     expect(response.body.info.limit).toBe(pagination.limit)
     expect(response.body.info.page).toBe(pagination.page)
-    //expect(response.body.info.numPages)
+    expect(response.body.posts.length).toBe(5)
   })
 
   it('Debería devolver un posts con el id dado', async () => {
-    const postId = 17
+    const postId = 5
     const response = await api.get(`/api/posts/${postId}`)
     expect(response.header['content-type']).toContain('application/json')
     expect(response.status).toBe(200)
@@ -42,7 +50,7 @@ describe('Posts endpoint', function () {
   })
 
   it('Debería devolver los comentarios de un posts', async () => {
-    const postId = 17
+    const postId = 5
     const response = await api.get(`/api/posts/comments/${postId}`)
     expect(response.header['content-type']).toContain('application/json')
     expect(response.status).toBe(200)
@@ -77,8 +85,7 @@ describe('Posts endpoint', function () {
       content: 'Contenido de prueba original',
       categorieId: 67
     }
-    const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5pY2tuYW1lIjoibWVudG9sYWRvIiwibmFtZSI6Ik1lbnRvbCIsImlhdCI6MTc0MTAyNTcyOX0.iONHnrtd-YM1w_-Zq4qrDbTXvUsxhvdbq5EhFtDta54'
-
+    const TOKEN = createJWT(jwtKey)
     const response = await api.post(`/api/posts`).send(data).set('Authorization', `Bearer ${TOKEN}`)
     expect(response.status).toBe(404)
   })
@@ -89,7 +96,7 @@ describe('Posts endpoint', function () {
       content: 'Contenido de prueba original',
       categorieId: 1
     }
-    const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5pY2tuYW1lIjoibWVudG9sYWRvIiwibmFtZSI6Ik1lbnRvbCIsImlhdCI6MTc0MTAyNTcyOX0.iONHnrtd-YM1w_-Zq4qrDbTXvUsxhvdbq5EhFtDta54'
+    const TOKEN = createJWT(jwtKey)
     const response = await api.post(`/api/posts`).send(data).set('Authorization', `Bearer ${TOKEN}`)
     expect(response.status).toBe(200)
   })

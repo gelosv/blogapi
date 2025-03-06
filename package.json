@@ -10,7 +10,7 @@
     "docker": "prisma migrate dev --name init && prisma generate",
     "build": "tsc",
     "lint": "eslint ./src",
-    "test": "echo \"SI\""
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
