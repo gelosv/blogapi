@@ -39,8 +39,10 @@ jobs:
         run: npm ci --no-fund --no-audit
       - name: status mysql
         run: sudo systemctl status mysql
+      - name: Delete migration
+        run: rm -rf prisma/migrations
       - name: Migrate database
-        run: npm run migrate
+        run: npm run migrate -- --name init
       - name: Generate prisma client
         run: npm run client
       - name: Test
