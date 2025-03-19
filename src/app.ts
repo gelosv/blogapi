@@ -7,6 +7,7 @@ import { router as routerUser } from './users/user.router';
 import { router as authRouter } from './auth/auth.router'
 import { errorHandler } from './middleware/errorr.middle'
 import './auth/strategies'
+import { setupSwagger } from './swagger';
 
 export function main() {
   const app = express();
@@ -30,6 +31,8 @@ export function main() {
   app.use(helmet())
   app.use(limiter)
 
+  setupSwagger(app)
+
   app.use('/api', router)
   router.use('/posts', routerPost)
   router.use('/users', routerUser)
@@ -43,4 +46,3 @@ export function main() {
 
   return { app, server }
 }
-

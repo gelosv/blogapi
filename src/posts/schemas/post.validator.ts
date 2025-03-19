@@ -30,4 +30,20 @@ export const postIdSchema = z.object({
   })
 })
 
+export const writerIdSchema = z.object({
+  writerId: z.string().transform((arg, ctx) => {
+    const parse = Number(arg);
+    if(!Number.isInteger(parse) || parse < 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Debe ser un número entero positivo'
+      })
+
+      return z.NEVER;
+    }
+
+    return parse;
+  })
+})
+
 export type postIdDto = z.infer<typeof postIdSchema>
