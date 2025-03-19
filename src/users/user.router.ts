@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createComment, getLikedPosts, likePost } from "./user.controller";
+import { createComment, getLikedPosts, likePost, unlikePost } from "./user.controller";
 import passport from "passport";
 import { validatorSchema } from "../middleware/validator.middle";
 import { createCommentSchema } from "./validators/user.validator";
@@ -29,6 +29,8 @@ router.use(passport.authenticate('jwt', { session: false }))
  *         description: Error de validacion
  */
 router.post('/like/:id', validatorSchema('params', postIdSchema), likePost)
+
+router.post('/unlike/:id', validatorSchema('params', postIdSchema), unlikePost)
 
 /**
  * @swagger

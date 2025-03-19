@@ -12,6 +12,14 @@ export const likePost = catchAsync(async (req: Request, res: Response) => {
   res.json(postLiked);
 });
 
+export const unlikePost = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.sub ?? null;
+  const postId = +req.params.id;
+
+  const postUnliked = await service.unlikePost(postId, userId);
+  res.json(postUnliked);
+});
+
 export const getLikedPosts = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.sub ?? null;
   const posts = await service.getLikePosts(userId);

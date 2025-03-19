@@ -32,6 +32,30 @@ export class UserService {
     return result
   }
 
+  async unlikePost(postId: number, userId: number) {
+    const postExist = await this.prisma.userLikedPost.findUnique({
+      where: {
+        postId_userId: {
+          postId,
+          userId
+        }
+      }
+    })
+
+    if(!postExist) throw boom.notFound('No like post o post no existe')
+
+    const result = await this.prisma.userLikedPost.delete({
+      where: {
+        postId_userId: {
+          postId,
+          userId
+        }
+      }
+    })
+
+    return result
+  }
+
  async getLikePosts(userId: number) {
     const postsLiked = await this.prisma.userLikedPost.findMany({
       where: {
