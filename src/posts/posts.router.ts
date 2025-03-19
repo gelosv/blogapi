@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCommentsPost, getPostById, getPosts, getPostUser } from "./posts.controller";
+import { deletePost, getCommentsPost, getPostById, getPosts, getPostUser } from "./posts.controller";
 import { PostService } from './posts.service';
 import { Post } from "./interfaces/post-create.interface";
 import { validatorSchema } from "./../middleware/validator.middle";
@@ -327,3 +327,5 @@ router.get('/:id', validatorSchema<unknown, unknown, postIdDto>('params', postId
  *                     example: Usuario inexistente
  */
 router.get('/user/:writerId', validatorSchema('params', writerIdSchema), getPostUser)
+
+router.delete('/:id', passport.authenticate('jwt', { session: false }), authorizationMiddle('WRITER'), validatorSchema('params', postIdSchema), deletePost)

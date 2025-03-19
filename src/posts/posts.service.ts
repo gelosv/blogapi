@@ -21,6 +21,27 @@ export class PostService {
     return newPost;
   }
 
+  async deletePost(postId: number, userId: number) {
+    const post = await this.postExits(postId)
+
+    const isPostUser = await this.prisma.post.findFirst({
+      where: {
+        id: postId,
+        writerId: userId
+      }
+    })
+
+    if(!isPostUser) throw boom.notFound('Usuario no es autor del post');
+
+    const result = await this.prisma.post.delete({
+      where: {
+        id: post.id
+      }
+    })
+
+    return result;
+  }
+
   async getPosts(pagination: PaginationDto) {
     const page = pagination.page ?? 1;
     const limit = pagination.limit ?? 10;

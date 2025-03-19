@@ -11,6 +11,13 @@ export const getPosts: RequestHandler<unknown, unknown, unknown, PaginationDto> 
   res.json(posts);
 })
 
+export const deletePost = catchAsync(async (req: Request, res: Response) => {
+  const postId = +req.params.id
+  const userId = req.user.sub ?? null
+  const post = await service.deletePost(postId, userId)
+  res.json(post)
+})
+
 export const getPostById: RequestHandler<postIdDto, unknown, unknown, unknown> = catchAsync(async (req, res) => {
   const postId = req.params.id
   const post = await service.getPostById(postId);
