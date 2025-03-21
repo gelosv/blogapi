@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build image
-        run: docker build -f dockerfile.prod --build-arg JWT_KEY=${{ secrets.JWT_KEY }} --build-arg DATABASE_URL=${{ secrets.DATABASE_PROD }} -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction.
+        run: docker build -f dockerfile.prod --build-arg JWT_KEY=${{ secrets.JWT_KEY }} --build-arg DATABASE_URL=${{ secrets.DATABASE_PROD }} -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction .
       - name: Push image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction
   deploy:
