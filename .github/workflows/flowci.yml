@@ -60,6 +60,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build image
-        run: docker build -f dockerfile.prod --build-arg JWT_KEY=${{ secrets.JWT_KEY }} --build-arg DATABASE_URL=${{ secrets.DATABASE_PROD }} -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction:2.0.0 .
+        run: docker build -f dockerfile.prod --build-arg JWT_KEY=${{ secrets.JWT_KEY }} --build-arg DATABASE_URL=${{ secrets.DATABASE_PROD }} -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction.
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction:2.0.0
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: AWS login
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy to ECS
+        run: aws ecs update-service --cluster Demo --service demoService --force-new-deployment 

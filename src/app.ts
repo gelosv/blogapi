@@ -35,7 +35,7 @@ export function main() {
 
   app.get('/', (req, res) => {
     res.json({
-      'health': 'ok'
+      'health': 'ok nuevo cambio'
     })
   })
 
