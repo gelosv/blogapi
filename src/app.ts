@@ -8,6 +8,7 @@ import { router as authRouter } from './auth/auth.router'
 import { errorHandler } from './middleware/errorr.middle'
 import './auth/strategies'
 import { setupSwagger } from './swagger';
+import cors from 'cors';
 
 export function main() {
   const app = express();
@@ -26,6 +27,7 @@ export function main() {
 
   app.set('port', process.env.PORT || 3000);
 
+  app.use(cors())
   app.use(express.json())
   app.use(express.urlencoded({extended: false}));
   app.use(helmet())
