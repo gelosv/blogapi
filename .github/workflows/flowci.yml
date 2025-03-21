@@ -60,6 +60,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build image
-        run: docker build -f dockerfile.prod -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction:2.0.0 .
+        run: docker build -f dockerfile.prod --build-arg JWT_KEY=${{ secrets.JWT_KEY }} --build-arg DATABASE_URL=${{ secrets.DATABASE_PROD }} -t ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction:2.0.0 .
       - name: Push image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blogproduction:2.0.0
