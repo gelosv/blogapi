@@ -33,6 +33,12 @@ export function main() {
 
   setupSwagger(app)
 
+  app.get('/', (req, res) => {
+    res.json({
+      'health': 'ok'
+    })
+  })
+
   app.use('/api', router)
   router.use('/posts', routerPost)
   router.use('/users', routerUser)
