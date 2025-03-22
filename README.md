@@ -40,4 +40,4 @@ El WRITER, puede:
 
 	Para mayor información de lo que puede hacer la API, se elaboró una documentación con swagger
 
-[Ver documentación]()
+[Ver documentación](https://blogproduction.onrender.com/api-docs/)
