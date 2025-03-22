@@ -9,7 +9,7 @@
     },
     "outDir": "dist",
     "typeRoots": ["./node_modules/@types", "./config/types"],
-    "removeComments": true,
+    "removeComments": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
