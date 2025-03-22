@@ -8,7 +8,7 @@ Base de datos: MySQL
 
 ### Características generales:
 - Desarrollo de flujo CI / CD
-- Despliegue automático en AWS beanstalk
+- Despliegue automático en AWS ECS
 - Uso de contenedores Docker (desarrollo y producción)
 - Optimización de imágenes Docker para producción
 - Implementación de autenticación usando JWT
