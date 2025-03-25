@@ -123,7 +123,6 @@ export class PostService {
         postId
       }
     })
-    console.log(numLikePost, 'número de likes');
     return {
       ...post,
       qtyLikes: numLikePost

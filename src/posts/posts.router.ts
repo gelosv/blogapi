@@ -48,7 +48,6 @@ export const router = Router();
  */
 router.post('/', validatorSchema<unknown, Post, unknown>('body', createPostSchema), passport.authenticate('jwt', { session: false }), authorizationMiddle('WRITER'), async (req, res, next) => {
   try {
-    console.log(req.user, 'user')
     const userId = req.user.sub ?? null
     const postData: Post = {
       ...req.body,

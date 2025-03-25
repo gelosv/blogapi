@@ -10,7 +10,7 @@ export class AuthService {
   private readonly prisma = new PrismaClient()
 
   setToken(data: {sub: number, name: string, nickname: string}) {
-    const token = jwt.sign(data, jwtKey);
+    const token = jwt.sign(data, jwtKey, { expiresIn: '2h' });
     return token
   }
 
