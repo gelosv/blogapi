@@ -9,11 +9,9 @@ export function validatorSchema<Q,B,P>(
   return (req: Request<P, unknown, B, Q>, res: Response, next: NextFunction) => {
     const data = req[origin];
     const payload = schema.safeParse(data);
-    console.log(payload, "resultado validación");
 
     if (!payload.success) {
       const errors = payload.error.formErrors.fieldErrors
-      console.log(errors, 'errores')
       throw boom.badRequest(JSON.stringify(errors));
     }
     req[origin] = payload.data;
