@@ -41,3 +41,17 @@ El WRITER, puede:
 	Para mayor información de lo que puede hacer la API, se elaboró una documentación con swagger
 
 [Ver documentación](https://blogproduction.onrender.com/api-docs/)
+
+## Ejecución
+
+Primero se debe configurar las variables de entorno necesarias:
+- PORT=3000
+- JWT_KEY=ajwtkey
+- DATABASE_PASSWORD=somepassword
+
+Para levantar el proyecto se debe ejecutar el docker-compose asociado
+
+	docker compose -f docker-compose.yml up
+
+ El comando inicia completamente el proyecto en localhost:3000
+
