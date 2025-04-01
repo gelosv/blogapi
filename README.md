@@ -2,20 +2,18 @@
 
 	API que permite realizar distintas operaciones dentro de un blog
 
-Lenguaje: TypeScript
-Framework: Express
-Base de datos: MySQL
-
-### Características generales:
-- Desarrollo de flujo CI / CD
-- Despliegue automático en AWS ECS
-- Uso de contenedores Docker (desarrollo y producción)
+### Conceptos aplicados:
+- Desarrollo de flujo CI / CD utilizando Github Actions
+- Despliegue automatizado en AWS ECS
+- Uso de contenedores Docker para desarrollo y producción
 - Optimización de imágenes Docker para producción
 - Implementación de autenticación usando JWT
 - Autorización basada en roles
-- Test de API
+- Realización de testing a la API usando Jest
 - Validación de datos
 - Filtros y paginación de datos
+
+**Tecnologías:** TypeScript, ExpressJs, MySQL, Prisma, JWT, Docker, CI/CD (github actions), Jest, AWS ECS
 
 ### Lo que puede hacer la API:
 
